@@ -4,9 +4,13 @@ import './ToDoItem.css';
 import TtTextbox from '../TtTextbox/TtTextbox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const ToDoItem: React.FC = () => {
-    const [editMode, setEditMode] = useState(true);
-    const [title, setTitle] = useState('');
+interface ToDoItemProps {
+    initialTitle?: string
+}
+
+const ToDoItem: React.FC<ToDoItemProps> = ({ initialTitle }) => {
+    const [editMode, setEditMode] = useState(false);
+    const [title, setTitle] = useState(initialTitle || '');
 
     const onTextboxCommit = (text: string) => {
         console.log(text);
@@ -29,7 +33,9 @@ const ToDoItem: React.FC = () => {
         return (
             <div className="ToDoItem">
                 <TtCheckbox label={title} />
-                <FontAwesomeIcon icon="pen" onClick={testEdit}></FontAwesomeIcon>
+                <FontAwesomeIcon icon="pen" onClick={testEdit}/>
+                <FontAwesomeIcon icon="sync-alt" flip="horizontal"/>
+                <FontAwesomeIcon icon="trash"/>
             </div>
         )
     }
