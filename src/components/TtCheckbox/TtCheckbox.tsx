@@ -3,16 +3,14 @@ import './TtCheckbox.css';
 
 interface TtCheckboxProps {
     label: string,
-    testEdit: () => void
 }
 
-const TtCheckbox: React.FC<TtCheckboxProps> = ({ label, testEdit }) => {
+const TtCheckbox: React.FC<TtCheckboxProps> = ({ label }) => {
     const [selected, setSelected] = useState(false);
 
     const onCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelected(!selected);
         console.log(`${label} is now ${!selected}`)
-        testEdit();
     }
 
     return (
