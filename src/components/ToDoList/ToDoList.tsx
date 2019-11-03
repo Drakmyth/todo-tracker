@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import ToDoItem from '../ToDoItem/ToDoItem';
 import './ToDoList.css';
-import TtCheckbox from '../TtCheckbox/TtCheckbox';
 
 const ToDoList: React.FC = () => {
-    const [listItems, setListItems] = useState(['Test1', 'Test2', 'Test3']);
+    const [listItems, setListItems] = useState([] as string[]);
 
     const addItem = () => {
         const newItemId = listItems.length + 1;
@@ -14,7 +14,7 @@ const ToDoList: React.FC = () => {
 
     return (
         <div className="ToDoList">
-            {listItems.map((i, idx) => <TtCheckbox key={idx} label={i}></TtCheckbox>)}
+            {listItems.map((i, idx) => <ToDoItem key={idx} />)}
             <button onClick={addItem}><span>Add Item</span></button>
         </div>
     );
