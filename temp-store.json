@@ -1,0 +1,71 @@
+{
+    "lists": {
+        "list1": {
+            "id": "1",
+            "title": "My First List",
+            "skip_reasons": [ "Reason 1", "Reason 2" ],
+            "items": [ "1", "2" ]
+        },
+        "list2": {
+            "id": "2",
+            "title": "My Second List",
+            "skip_reasons": [],
+            "items": [ "3", "4" ]
+        }
+    },
+    "tasks": {
+        "task1": {
+            "id": "task1",
+            "title": "My First Task",
+            "scheduled_at": "2019-01-01",
+            "expires_at": null,
+            "recurrance": "daily"
+        },
+        "task2": {
+            "id": "task2",
+            "title": "My Second Task",
+            "scheduled_at": "2019-01-01",
+            "expires_at": null,
+            "recurrance": "weekly"
+        },
+        "task3": {
+            "id": "task3",
+            "title": "My Third Task",
+            "scheduled_at": "2019-01-01",
+            "expires_at": null,
+            "recurrance": "monthly"
+        },
+        "task4": {
+            "id": "task4",
+            "title": "My Fourth Task",
+            "scheduled_at": "2019-01-01",
+            "expires_at": null,
+            "recurrance": "yearly"
+        },
+        "task5": {
+            "id": "task5",
+            "title": "My Fifth Task",
+            "scheduled_at": "2019-01-01",
+            "expires_at": null,
+            "recurrance": "persistent"
+        }
+    },
+    "colors": {
+        "list1": {
+            "complete": "0x00FF00",
+            "incomplete": "0xFF0000",
+            "skip_reasons": {
+                "Reason 1": "0x000000",
+                "Reason 2": "0x0000FF"
+            }
+        },
+        "list2": {
+            "complete": "0x00FF00",
+            "incomplete": "0xFF0000",
+            "skip_reasons": {}
+        }
+    },
+    "tracking": {
+        "task1": ["2019-01-01", "2019-01-03", "2019-01-04", "2019-02-05", "2019-06-07"]
+    }
+}
