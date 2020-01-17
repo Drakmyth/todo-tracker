@@ -33,9 +33,9 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ initialTitle }) => {
         return (
             <div className="ToDoItem">
                 <TtCheckbox label={title} />
-                <FontAwesomeIcon icon="pen" onClick={testEdit}/>
-                <FontAwesomeIcon icon="sync-alt" flip="horizontal"/>
-                <FontAwesomeIcon icon="trash"/>
+                <FontAwesomeIcon icon="pen" onClick={testEdit} />
+                <FontAwesomeIcon icon="sync-alt" flip="horizontal" />
+                <FontAwesomeIcon icon="trash" />
             </div>
         )
     }

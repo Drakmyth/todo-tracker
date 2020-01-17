@@ -1,71 +1,118 @@
 {
-    "lists": {
-        "list1": {
-            "id": "1",
-            "title": "My First List",
-            "skip_reasons": [ "Reason 1", "Reason 2" ],
-            "items": [ "1", "2" ]
-        },
-        "list2": {
-            "id": "2",
-            "title": "My Second List",
-            "skip_reasons": [],
-            "items": [ "3", "4" ]
-        }
-    },
-    "tasks": {
-        "task1": {
-            "id": "task1",
-            "title": "My First Task",
-            "scheduled_at": "2019-01-01",
-            "expires_at": null,
-            "recurrance": "daily"
-        },
-        "task2": {
-            "id": "task2",
-            "title": "My Second Task",
-            "scheduled_at": "2019-01-01",
-            "expires_at": null,
-            "recurrance": "weekly"
-        },
-        "task3": {
-            "id": "task3",
-            "title": "My Third Task",
-            "scheduled_at": "2019-01-01",
-            "expires_at": null,
-            "recurrance": "monthly"
-        },
-        "task4": {
-            "id": "task4",
-            "title": "My Fourth Task",
-            "scheduled_at": "2019-01-01",
-            "expires_at": null,
-            "recurrance": "yearly"
-        },
-        "task5": {
-            "id": "task5",
-            "title": "My Fifth Task",
-            "scheduled_at": "2019-01-01",
-            "expires_at": null,
-            "recurrance": "persistent"
-        }
+    "system": {
+        "selectedList": "list-id",
+        "selectedItem": "item-id"
     },
     "colors": {
         "list1": {
             "complete": "0x00FF00",
             "incomplete": "0xFF0000",
             "skip_reasons": {
-                "Reason 1": "0x000000",
-                "Reason 2": "0x0000FF"
+                "skip-reason-2": "0x0000FF"
             }
         },
         "list2": {
             "complete": "0x00FF00",
             "incomplete": "0xFF0000",
+            "skip_reasons": {
+                "skip-reason-1": "0x000000",
+                "skip-reason-2": "0x0000FF"
+            }
+        },
+        "list3": {
+            "complete": "0x00FF00",
+            "incomplete": "0xFF0000",
             "skip_reasons": {}
         }
     },
-    "tracking": {
-        "task1": ["2019-01-01", "2019-01-03", "2019-01-04", "2019-02-05", "2019-06-07"]
+    "todolists": {
+        "list-id-1": {
+            "id": "list-id-1",
+            "name": "List 1",
+            "skip_reasons": [
+                "skip-reason-2"
+            ]
+        },
+        "list-id-2": {
+            "id": "list-id-2",
+            "name": "List 2",
+            "skip_reasons": [
+                "skip-reason-1",
+                "skip-reason-2"
+            ]
+        },
+        "list-id-3": {
+            "id": "list-id-3",
+            "name": "List 3",
+            "skip_reasons": []
+        }
+    },
+    "todoitems": {
+        "item-id-1": {
+            "id": "item-id-1",
+            "list": "list-id-1",
+            "name": "Item 1",
+            "starts": "2019-01-01",
+            "ends": "2020-01-01",
+            "recurrance": "daily"
+        },
+        "item-id-2": {
+            "id": "item-id-2",
+            "list": "list-id-1",
+            "name": "Item 2",
+            "starts": "2019-01-01",
+            "ends": "2020-01-01",
+            "recurrance": "weekly"
+        },
+        "item-id-3": {
+            "id": "item-id-3",
+            "list": "list-id-1",
+            "name": "Item 3",
+            "starts": "2019-01-01",
+            "ends": "2020-01-01",
+            "recurrance": "monthly"
+        },
+        "item-id-4": {
+            "id": "item-id-4",
+            "list": "list-id-2",
+            "name": "Item 4",
+            "starts": "2019-01-01",
+            "ends": "2020-01-01",
+            "recurrance": "yearly"
+        },
+        "item-id-5": {
+            "id": "item-id-5",
+            "list": "list-id-2",
+            "name": "Item 5",
+            "starts": "2019-01-01",
+            "ends": "2020-01-01",
+            "recurrance": "persistent"
+        }
+    },
+    "skipreasons": {
+        "skip-reason-1": {
+            "id": "skip-reason-1",
+            "reason": "Reason 1"
+        },
+        "skip-reason-2": {
+            "id": "skip-reason-2",
+            "reason": "Reason 2"
+        }
+    },
+    "completions": {
+        "completion-id-1": {
+            "id": "completion-id-1",
+            "item": "item-id-1",
+            "date": "2019-01-01",
+            "status": "complete",
+            "reason": null
+        },
+        "completion-id-2": {
+            "id": "completion-id-2",
+            "item": "item-id-3",
+            "date": "2019-01-01",
+            "status": "skipped",
+            "reason": "skip-reason-1"
+        }
     }
 }
