@@ -43,7 +43,7 @@ const ToDoList: React.FC<ToDoListProps> = (props) => {
                     })
             }
             {showPlaceholder && <TtTextbox initialText="" onTextboxCommit={onTextboxCommit} />}
-            <button onClick={displayPlaceholder}>Add Item</button>
+            <button onClick={displayPlaceholder} disabled={showPlaceholder}>Add Item</button>
         </div>
     );
 }

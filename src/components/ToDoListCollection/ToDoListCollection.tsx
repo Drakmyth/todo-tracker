@@ -37,7 +37,7 @@ const ToDoListCollection: React.FC = () => {
         })
       }
       {showPlaceholder && <TtTextbox initialText="" onTextboxCommit={onTextboxCommit} />}
-      <button onClick={displayPlaceholder}>Create List</button>
+      <button onClick={displayPlaceholder} disabled={showPlaceholder}>Create List</button>
     </div>
   );
 }
