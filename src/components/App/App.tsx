@@ -18,6 +18,8 @@ const App: React.FC = () => {
     <div className="App">
       <ToDoListCollection/>
       <ToDoList id={system.selectedList}/>
+      <div className="calendar"/>
+      <div className="history"/>
     </div>
   );
 }
