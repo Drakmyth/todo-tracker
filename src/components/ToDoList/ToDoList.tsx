@@ -22,7 +22,7 @@ const ToDoList: React.FC<ToDoListProps> = (props) => {
     const displayPlaceholder = () => {
         setShowPlaceholder(true);
     }
-
+    
     const onTextboxCommit = (text: string) => {
         setShowPlaceholder(false);
         if (text === '') {
