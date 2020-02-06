@@ -1,17 +1,18 @@
-import React, { KeyboardEvent, MouseEvent } from 'react';
+import React from 'react';
 import './ModalContent.css';
 import ReactDOM from 'react-dom';
 import { FocusOn } from 'react-focus-on';
 
 interface ModalContentProps {
     onClose: () => void
+    onCancel: () => void
 }
 
 const ModalContent: React.FC<ModalContentProps> = (props) => {
 
     return ReactDOM.createPortal(
         <aside className="modalCover">
-            <FocusOn onEscapeKey={props.onClose} onClickOutside={props.onClose}>
+            <FocusOn onEscapeKey={props.onCancel} onClickOutside={props.onCancel}>
                 <div className="modal">
                     <button className="modalClose" onClick={props.onClose}>
                         <svg viewBox="0 0 40 40">

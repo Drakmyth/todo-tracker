@@ -1,6 +1,5 @@
-import React, { Fragment, useState, KeyboardEvent, MouseEvent, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import './Modal.css';
-import ModalTrigger from '../ModalTrigger/ModalTrigger';
 import ModalContent from '../ModalContent/ModalContent';
 
 interface ModalProps {
@@ -18,11 +17,15 @@ const Modal: React.FC<ModalProps> = (props) => {
         setIsOpen(false);
     };
 
+    const onCancel = () => {
+        setIsOpen(false);
+    }
+
     return (
         <Fragment>
-            <ModalTrigger text={props.triggerText} onOpen={onOpen} />
+            <button className="modalTrigger" onClick={onOpen}>{props.triggerText}</button>
             {isOpen &&
-                <ModalContent onClose={onClose}>{props.children}</ModalContent>}
+                <ModalContent onClose={onClose} onCancel={onCancel}>{props.children}</ModalContent>}
         </Fragment>
     );
 }

@@ -25,11 +25,6 @@ const ToDoListCollection: React.FC = () => {
     dispatch(addList(text))
   }
 
-  const modalProps = {
-    triggerText: 'This is a button to trigger the Modal',
-    ariaLabel: "A label describing the Modal's current content"
-  }
-
   return (
     <div className="ToDoListCollection">
       <header>Lists</header>
@@ -44,7 +39,7 @@ const ToDoListCollection: React.FC = () => {
       }
       {showPlaceholder && <TtTextbox initialText="" onTextboxCommit={onTextboxCommit} />}
       <button onClick={displayPlaceholder} disabled={showPlaceholder}>Create List</button>
-      <Modal {...modalProps}>Testing Content</Modal>
+      <Modal triggerText="This is a button to trigger the Modal">Testing Content</Modal>
     </div>
   );
 }
