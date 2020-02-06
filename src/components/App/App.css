@@ -23,7 +23,3 @@
   grid-column: 3;
   grid-row: 2;
 }
-
-.u-lock-scroll {
-  overflow: hidden !important;
-}
