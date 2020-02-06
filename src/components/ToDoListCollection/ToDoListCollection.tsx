@@ -6,23 +6,23 @@ import { addList } from '../../store/todolistsStore';
 import { selectList } from '../../store/systemStore';
 import TtTextbox from '../TtTextbox/TtTextbox';
 import Modal from '../Modal/Modal';
+import CreateListForm from '../CreateListForm/CreateListForm';
 
 const ToDoListCollection: React.FC = () => {
   const todolists = useSelector((state: RootState) => state.todolists);
   const dispatch = useDispatch();
-  const [showPlaceholder, setShowPlaceholder] = useState(false);
+  const [showCreateListDialog, setShowCreateListDialog] = useState(false);
 
-  const displayPlaceholder = () => {
-    setShowPlaceholder(true);
+  const openCreateListDialog = () => {
+    setShowCreateListDialog(true);
   }
 
-  const onTextboxCommit = (text: string) => {
-    setShowPlaceholder(false);
-    if (text === '') {
-      return;
-    }
-    console.log(`Creating list ${text}`)
-    dispatch(addList(text))
+  const cancelCreateListDialog = () => {
+    setShowCreateListDialog(false);
+  }
+
+  const closeCreateListDialog = () => {
+    setShowCreateListDialog(false);
   }
 
   return (
@@ -37,9 +37,10 @@ const ToDoListCollection: React.FC = () => {
           )
         })
       }
-      {showPlaceholder && <TtTextbox initialText="" onTextboxCommit={onTextboxCommit} />}
-      <button onClick={displayPlaceholder} disabled={showPlaceholder}>Create List</button>
-      <Modal triggerText="This is a button to trigger the Modal">Testing Content</Modal>
+      <button onClick={openCreateListDialog}>Create List</button>
+      <Modal show={showCreateListDialog} onCancel={cancelCreateListDialog} onClose={closeCreateListDialog}>
+        <CreateListForm />
+      </Modal>
     </div>
   );
 }

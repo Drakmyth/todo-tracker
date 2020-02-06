@@ -1,32 +1,33 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import './Modal.css';
-import ModalContent from '../ModalContent/ModalContent';
+import ReactDOM from 'react-dom';
+import { FocusOn } from 'react-focus-on';
 
 interface ModalProps {
-    triggerText: string
+    show: boolean
+    onClose: () => void
+    onCancel: () => void
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
 
-    const onOpen = () => {
-        setIsOpen(true);
-    };
+    if (!props.show) return <Fragment></Fragment>;
 
-    const onClose = () => {
-        setIsOpen(false);
-    };
-
-    const onCancel = () => {
-        setIsOpen(false);
-    }
-
-    return (
-        <Fragment>
-            <button className="modalTrigger" onClick={onOpen}>{props.triggerText}</button>
-            {isOpen &&
-                <ModalContent onClose={onClose} onCancel={onCancel}>{props.children}</ModalContent>}
-        </Fragment>
+    return ReactDOM.createPortal(
+        <aside className="modalCover">
+            <FocusOn onEscapeKey={props.onCancel} onClickOutside={props.onCancel}>
+                <div className="modal">
+                    <button className="modalClose" onClick={props.onClose}>
+                        <svg viewBox="0 0 40 40">
+                            <path d="M 10,10 L 30,30 M 30,10 L 10,30"></path>
+                        </svg>
+                    </button>
+                    <div className="modalBody">
+                        {props.children}
+                    </div>
+                </div>
+            </FocusOn>
+        </aside>, document.body
     );
 }
 

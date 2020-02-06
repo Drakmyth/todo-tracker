@@ -3,48 +3,24 @@
         "selectedList": "list-id",
         "selectedItem": "item-id"
     },
-    "colors": {
-        "list1": {
-            "complete": "0x00FF00",
-            "incomplete": "0xFF0000",
-            "skip_reasons": {
-                "skip-reason-2": "0x0000FF"
-            }
-        },
-        "list2": {
-            "complete": "0x00FF00",
-            "incomplete": "0xFF0000",
-            "skip_reasons": {
-                "skip-reason-1": "0x000000",
-                "skip-reason-2": "0x0000FF"
-            }
-        },
-        "list3": {
-            "complete": "0x00FF00",
-            "incomplete": "0xFF0000",
-            "skip_reasons": {}
-        }
-    },
     "todolists": {
         "list-id-1": {
             "id": "list-id-1",
             "name": "List 1",
-            "skip_reasons": [
-                "skip-reason-2"
-            ]
+            "complete-color": "#00FF00",
+            "incomplete-color": "#FF0000"
         },
         "list-id-2": {
             "id": "list-id-2",
             "name": "List 2",
-            "skip_reasons": [
-                "skip-reason-1",
-                "skip-reason-2"
-            ]
+            "complete-color": "#00FF00",
+            "incomplete-color": "#FF0000"
         },
         "list-id-3": {
             "id": "list-id-3",
             "name": "List 3",
-            "skip_reasons": []
+            "complete-color": "#00FF00",
+            "incomplete-color": "#FF0000"
         }
     },
     "todoitems": {
@@ -92,10 +68,14 @@
     "skipreasons": {
         "skip-reason-1": {
             "id": "skip-reason-1",
+            "list": "list-id-1",
+            "color": "#0000FF",
             "reason": "Reason 1"
         },
         "skip-reason-2": {
             "id": "skip-reason-2",
+            "list": "list-id-2",
+            "color": "#0000FF",
             "reason": "Reason 2"
         }
     },
