@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import './ToDoListCollection.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/rootStore';
-import { addList } from '../../store/todolistsStore';
 import { selectList } from '../../store/systemStore';
-import TtTextbox from '../TtTextbox/TtTextbox';
 import Modal from '../Modal/Modal';
 import CreateListForm from '../CreateListForm/CreateListForm';
 
