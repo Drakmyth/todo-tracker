@@ -1,5 +1,5 @@
-import React, { useState, Fragment, useEffect } from 'react';
-import './ColorPicker.css';
+import React, { useState, useEffect } from 'react';
+import './ColorPicker.scss';
 import { SketchPicker } from 'react-color';
 import Modal from '../Modal/Modal';
 

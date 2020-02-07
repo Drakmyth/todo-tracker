@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ToDoItem.css';
+import './ToDoItem.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ToDoItemProps {

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import './Modal.css';
+import './Modal.scss';
 import ReactDOM from 'react-dom';
 import { FocusOn } from 'react-focus-on';
 

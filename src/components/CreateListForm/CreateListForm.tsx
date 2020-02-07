@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CreateListForm.css';
+import './CreateListForm.scss';
 import { RootState } from '../../store/rootStore';
 import { useSelector } from 'react-redux';
 import ColorPicker from '../ColorPicker/ColorPicker';
