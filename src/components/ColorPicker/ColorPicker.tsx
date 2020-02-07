@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ColorPicker.scss';
 import { SketchPicker } from 'react-color';
 import Modal from '../Modal/Modal';
+import ReactDOM from 'react-dom';
 
 interface ColorPickerProps {
     color: string
@@ -36,9 +37,16 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
         <div className="cp-preview" onClick={openPicker} style={{ background: color }}></div>
         <span className="cp-hex">{color}</span>
         {displayColorPicker &&
-            <Modal show={displayColorPicker} onClose={pickColor} onCancel={cancelColor}>
-                <SketchPicker color={color} onChange={(c) => setColor(c.hex)} />
-            </Modal>
+            // <Modal show={displayColorPicker}
+            //     onClose={pickColor}
+            //     onCancel={cancelColor}
+            //     className="ColorPickerModal"
+            //     cover={false}>
+            ReactDOM.createPortal(<div className="popover">
+                <div className="cover" onClick={pickColor}/>
+                <SketchPicker  color={color} onChange={(c) => setColor(c.hex)} />
+            </div>, document.body)
+            // </Modal>
         }
     </div>
 }

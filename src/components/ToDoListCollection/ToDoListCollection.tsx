@@ -36,7 +36,7 @@ const ToDoListCollection: React.FC = () => {
         })
       }
       <button onClick={openCreateListDialog}>Create List</button>
-      <Modal show={showCreateListDialog} onCancel={cancelCreateListDialog} onClose={closeCreateListDialog}>
+      <Modal isOpen={showCreateListDialog} onEscapeKey={cancelCreateListDialog} onClickOutside={closeCreateListDialog}>
         <CreateListForm />
       </Modal>
     </div>

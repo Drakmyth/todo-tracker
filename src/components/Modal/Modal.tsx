@@ -4,30 +4,24 @@ import ReactDOM from 'react-dom';
 import { FocusOn } from 'react-focus-on';
 
 interface ModalProps {
-    show: boolean
-    onClose: () => void
-    onCancel: () => void
+    isOpen: boolean
+    onEscapeKey: () => void
+    onClickOutside: () => void
+    cover? : boolean
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
 
-    if (!props.show) return <Fragment></Fragment>;
+    if (!props.isOpen) return <Fragment></Fragment>;
 
     return ReactDOM.createPortal(
-        <aside className="modalCover">
-            <FocusOn onEscapeKey={props.onCancel} onClickOutside={props.onCancel}>
-                <div className="modal">
-                    <button className="modalClose" onClick={props.onClose}>
-                        <svg viewBox="0 0 40 40">
-                            <path d="M 10,10 L 30,30 M 30,10 L 10,30"></path>
-                        </svg>
-                    </button>
-                    <div className="modalBody">
-                        {props.children}
-                    </div>
+        <section className={(props.cover ?? true) ? "ModalCover" : ""}>
+            <FocusOn onEscapeKey={props.onEscapeKey} onClickOutside={props.onClickOutside}>
+                <div className="Modal">
+                    {props.children}
                 </div>
             </FocusOn>
-        </aside>, document.body
+        </section>, document.body
     );
 }
 

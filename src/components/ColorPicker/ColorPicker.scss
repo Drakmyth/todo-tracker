@@ -12,3 +12,24 @@
         margin-left: 4px;
     }
 }
+
+.ColorPickerModal {
+    position: absolute;
+
+    .modalClose {
+        display: none;
+    }
+}
+
+.popover {
+    position: absolute;
+    // top: 0px;
+}
+
+.cover {
+    position: fixed;
+    // top: 0px;
+    // right: 0px;
+    // bottom: 0px;
+    // left: 0px;
+}

@@ -29,10 +29,10 @@ const CreateListForm: React.FC = () => {
     }
 
     return <form className="CreateListForm">
-        <p>
+        {/* <p> */}
             <label>Title</label><br />
             <input type="text" name="title" placeholder="e.g. My First List" />
-        </p>
+        {/* </p> */}
         <label>Skip Reasons</label><br />
         <table>
             <thead>
