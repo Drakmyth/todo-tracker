@@ -29,30 +29,42 @@ const CreateListForm: React.FC = () => {
     }
 
     return <form className="CreateListForm">
-        {/* <p> */}
+        <section className="ListProperties">
             <label>Title</label><br />
             <input type="text" name="title" placeholder="e.g. My First List" />
-        {/* </p> */}
-        <label>Skip Reasons</label><br />
-        <table>
-            <thead>
-                <tr>
-                    <th>Reason</th>
-                    <th>Color</th>
-                </tr>
-            </thead>
-            <tbody>
-                {Object.keys(skipReasons).map((key, index) => {
-                    return <tr key={index}>
-                        <td>{key}</td>
-                        <td>{skipReasons[key]}</td>
+        </section>
+        <section className="SkipReasons">
+            <label>Skip Reasons</label><br />
+            <table>
+                <thead>
+                    <tr>
+                        <th>Reason</th>
+                        <th>Color</th>
                     </tr>
-                })}
-            </tbody>
-        </table>
-        <input type="text" value={reasonText} onChange={(event) => setReasonText(event.target.value)} placeholder="e.g. My Reason" />
-        <ColorPicker color={color} onChange={(c) => setColor(c)}/>
-        <input type="button" value="Add Skip Reason" onClick={addSkipReason} />
+                </thead>
+                <tbody>
+                    {Object.keys(skipReasons).map((key, index) => {
+                        return <tr key={index}>
+                            <td>{key}</td>
+                            <td>{skipReasons[key]}</td>
+                        </tr>
+                    })}
+                    <tr>
+                        <td>
+                            <input type="text" value={reasonText} onChange={(event) => setReasonText(event.target.value)} placeholder="e.g. My Reason" />
+                        </td>
+                        <td>
+                            <ColorPicker color={color} onChange={(c) => setColor(c)} />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="button" value="Add Skip Reason" onClick={addSkipReason} />
+        </section>
+        <section className="ModalButtons">
+            <input type="button" value="Add List"/>
+            <input type="button" value="Cancel"/>
+        </section>
     </form>
 }
 
