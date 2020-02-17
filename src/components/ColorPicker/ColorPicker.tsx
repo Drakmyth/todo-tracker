@@ -1,4 +1,4 @@
-import React, { useState, useEffect, MouseEvent } from 'react';
+import React, { useState, useEffect, MouseEvent, useRef } from 'react';
 import './ColorPicker.scss';
 import { SketchPicker } from 'react-color';
 import ReactDOM from 'react-dom';
@@ -10,17 +10,26 @@ interface ColorPickerProps {
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
     const [displayColorPicker, setDisplayColorPicker] = useState(false)
+    const [pickerPosition, setPickerPosition] = useState([0,0])
     const [color, setColor] = useState(props.color)
     const [previousColor, setPreviousColor] = useState(props.color)
 
-    const popover_ref = React.createRef<HTMLDivElement>();
+    const popover_ref = useRef<HTMLDivElement>(null);
+    const picker_preview_ref = useRef<HTMLDivElement>(null);
+    const picker_modal_ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setPreviousColor(props.color);
         setColor(props.color);
     }, [props.color]);
 
-    const openPicker = () => {
+    useEffect(() => {
+        const rect = picker_preview_ref.current?.getBoundingClientRect() ?? {left: 0, top:0};
+        const top = rect.top - (picker_modal_ref.current?.getBoundingClientRect()?.height ?? 0);
+        setPickerPosition([rect.left, top])
+    }, [displayColorPicker])
+
+    const openPicker = (event: MouseEvent<HTMLElement>) => {
         setDisplayColorPicker(true);
     }
 
@@ -43,12 +52,12 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
     }
 
     return <div className="ColorPicker">
-        <div className="cp-preview" onClick={openPicker} style={{ background: color }}></div>
-        <span className="cp-hex">{color}</span>
+        <div className="cp-preview" ref={picker_preview_ref} onClick={openPicker} style={{ background: previousColor }}></div>
+        <span className="cp-hex">{previousColor}</span>
         {displayColorPicker &&
             ReactDOM.createPortal(
                 <div className="popover" ref={popover_ref} onClick={cancelClickAway}>
-                    <div className="color-picker-modal">
+                    <div className="color-picker-modal" ref={picker_modal_ref} style={{left: pickerPosition[0], top: pickerPosition[1]}}>
                         <SketchPicker color={color} onChange={(c) => setColor(c.hex)} />
                         <div className="color-picker-buttons">
                             <button onClick={pickColor}>Apply</button>
