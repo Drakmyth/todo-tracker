@@ -3,8 +3,7 @@ import './ToDoListCollection.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/rootStore';
 import { selectList } from '../../store/systemStore';
-import Modal from '../Modal/Modal';
-import CreateListForm from '../CreateListForm/CreateListForm';
+import AddListModal from './AddListModal/AddListModal';
 
 const ToDoListCollection: React.FC = () => {
   const todolists = useSelector((state: RootState) => state.todolists);
@@ -19,8 +18,8 @@ const ToDoListCollection: React.FC = () => {
     setShowCreateListDialog(false);
   }
 
-  const closeCreateListDialog = () => {
-    setShowCreateListDialog(false);
+  const confirmCreateListDialog = () => {
+    console.log("Confirmed");
   }
 
   return (
@@ -36,9 +35,7 @@ const ToDoListCollection: React.FC = () => {
         })
       }
       <button onClick={openCreateListDialog}>Create List</button>
-      <Modal isOpen={showCreateListDialog} onEscapeKey={cancelCreateListDialog} onClickOutside={closeCreateListDialog}>
-        <CreateListForm />
-      </Modal>
+      <AddListModal isOpen={showCreateListDialog} onCancel={cancelCreateListDialog} onConfirm={confirmCreateListDialog}/>
     </div>
   );
 }

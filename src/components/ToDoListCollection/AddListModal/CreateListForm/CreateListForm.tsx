@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import './CreateListForm.scss';
-import { RootState } from '../../store/rootStore';
-import { useSelector } from 'react-redux';
-import ColorPicker from '../ColorPicker/ColorPicker';
+import ColorPicker from '../../../ColorPicker/ColorPicker';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface PotentialReasonMap {
-    [key: string]: string
+    [reason: string]: string  // [reason]: color
 }
 
 const CreateListForm: React.FC = () => {
-    const existingSkipReasons = useSelector((state: RootState) => state.skipreasons)
     const [skipReasons, setSkipReasons] = useState<PotentialReasonMap>({})
     const [color, setColor] = useState('#000000')
     const [reasonText, setReasonText] = useState('')
-
-    const existingReasonOptions = Object.keys(existingSkipReasons).map(key => existingSkipReasons[key].reason).filter((value, index, self) => self.indexOf(value) === index);
 
     const addSkipReason = () => {
         if (reasonText === '') return;
@@ -26,6 +22,19 @@ const CreateListForm: React.FC = () => {
 
         setReasonText('');
         setColor('#000000');
+    }
+
+    const updateExistingColor = (reason: string, color: string) => {
+        setSkipReasons({
+            ...skipReasons,
+            [reason]: color
+        });
+    }
+
+    const deleteSkipReason = (reason: string) => {
+        const clone = { ...skipReasons };
+        delete clone[reason];
+        setSkipReasons(clone);
     }
 
     return <form className="CreateListForm">
@@ -43,27 +52,24 @@ const CreateListForm: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(skipReasons).map((key, index) => {
+                    {Object.keys(skipReasons).map((reason, index) => {
                         return <tr key={index}>
-                            <td>{key}</td>
-                            <td>{skipReasons[key]}</td>
+                            <td>{reason}</td>
+                            <td><ColorPicker color={skipReasons[reason]} onChange={(c) => updateExistingColor(reason, c)} /></td>
+                            <td><FontAwesomeIcon icon="trash" onClick={() => deleteSkipReason(reason)} /></td>
                         </tr>
                     })}
                     <tr>
                         <td>
                             <input type="text" value={reasonText} onChange={(event) => setReasonText(event.target.value)} placeholder="e.g. My Reason" />
                         </td>
-                        <td>
+                        {/* <td>
                             <ColorPicker color={color} onChange={(c) => setColor(c)} />
-                        </td>
+                        </td> */}
                     </tr>
                 </tbody>
             </table>
             <input type="button" value="Add Skip Reason" onClick={addSkipReason} />
-        </section>
-        <section className="ModalButtons">
-            <input type="button" value="Add List"/>
-            <input type="button" value="Cancel"/>
         </section>
     </form>
 }
