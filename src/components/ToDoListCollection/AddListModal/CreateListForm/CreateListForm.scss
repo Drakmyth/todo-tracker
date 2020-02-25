@@ -9,10 +9,35 @@
     .ListProperties {
         grid-row: 1;
         grid-column: 1;
+        border-right: 1px gray solid;
+    }
+    
+    .ListField {
+        margin: 8px;
+        display: flex;
+        flex-direction: column;
+
+        .validation-error {
+            font-size: 0.75em;
+            color: red;
+        }
     }
 
     .SkipReasons {
         grid-row: 1;
         grid-column: 2;
+        margin: 8px;
+
+        table {
+            margin-left: 10px;
+        }
+    }
+
+    .skip-reason-row:hover > .skip-reason-trash-button {
+        opacity: 1;
+    }
+
+    .skip-reason-trash-button {
+        opacity: 0;
     }
 }

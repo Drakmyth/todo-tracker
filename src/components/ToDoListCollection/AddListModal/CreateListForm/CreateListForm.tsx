@@ -3,47 +3,66 @@ import './CreateListForm.scss';
 import ColorPicker from '../../../ColorPicker/ColorPicker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface PotentialReasonMap {
-    [reason: string]: string  // [reason]: color
+interface CreateListFormProps {
+    title: string
+    skipReasons: ReasonColorMap
+    completeColor: string
+    incompleteColor: string
+    onSkipReasonChange: (skipReasons: ReasonColorMap) => void
+    onTitleChange: (title: string) => void
+    onCompleteColorChange: (completeColor: string) => void
+    onIncompleteColorChange: (incompleteColor: string) => void
 }
 
-const CreateListForm: React.FC = () => {
-    const [skipReasons, setSkipReasons] = useState<PotentialReasonMap>({})
-    const [color, setColor] = useState('#000000')
-    const [reasonText, setReasonText] = useState('')
+const CreateListForm: React.FC<CreateListFormProps> = (props) => {
+    const [reasonText, setReasonText] = useState('');
 
     const addSkipReason = () => {
         if (reasonText === '') return;
 
-        setSkipReasons({
-            ...skipReasons,
-            [reasonText]: color
+        props.onSkipReasonChange({
+            ...props.skipReasons,
+            [reasonText]: '#000000'
         });
 
         setReasonText('');
-        setColor('#000000');
     }
 
     const updateExistingColor = (reason: string, color: string) => {
-        setSkipReasons({
-            ...skipReasons,
+        props.onSkipReasonChange({
+            ...props.skipReasons,
             [reason]: color
         });
     }
 
     const deleteSkipReason = (reason: string) => {
-        const clone = { ...skipReasons };
+        const clone = { ...props.skipReasons };
         delete clone[reason];
-        setSkipReasons(clone);
+        props.onSkipReasonChange(clone);
     }
 
     return <form className="CreateListForm">
-        <section className="ListProperties">
-            <label>Title</label><br />
-            <input type="text" name="title" placeholder="e.g. My First List" />
-        </section>
-        <section className="SkipReasons">
-            <label>Skip Reasons</label><br />
+        <div className="ListProperties">
+            <div className="ListField">
+                <label htmlFor="list-title">Title:</label>
+                <input id="list-title"
+                    type="text"
+                    value={props.title}
+                    onChange={(event) => props.onTitleChange(event.target.value)}
+                    placeholder="e.g. My First List" />
+                <span className="validation-error">*Required</span>
+            </div>
+            <div className="ListField">
+                <span>Complete Color:</span>
+                <ColorPicker color={props.completeColor} onChange={props.onCompleteColorChange} />
+            </div>
+            <div className="ListField">
+                <span>Incomplete Color:</span>
+                <ColorPicker color={props.incompleteColor} onChange={props.onIncompleteColorChange} />
+            </div>
+        </div>
+        <div className="SkipReasons">
+            <span>Skip Reasons:</span>
             <table>
                 <thead>
                     <tr>
@@ -52,25 +71,28 @@ const CreateListForm: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(skipReasons).map((reason, index) => {
-                        return <tr key={index}>
+                    {Object.keys(props.skipReasons).map((reason, index) => {
+                        return <tr key={index} className="skip-reason-row">
                             <td>{reason}</td>
-                            <td><ColorPicker color={skipReasons[reason]} onChange={(c) => updateExistingColor(reason, c)} /></td>
-                            <td><FontAwesomeIcon icon="trash" onClick={() => deleteSkipReason(reason)} /></td>
+                            <td><ColorPicker color={props.skipReasons[reason]} onChange={(c) => updateExistingColor(reason, c)} /></td>
+                            <td className="skip-reason-trash-button"><FontAwesomeIcon icon="trash" onClick={() => deleteSkipReason(reason)} /></td>
                         </tr>
                     })}
                     <tr>
                         <td>
                             <input type="text" value={reasonText} onChange={(event) => setReasonText(event.target.value)} placeholder="e.g. My Reason" />
                         </td>
-                        {/* <td>
-                            <ColorPicker color={color} onChange={(c) => setColor(c)} />
-                        </td> */}
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <input type="button" value="Add Skip Reason" onClick={addSkipReason} />
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
-            <input type="button" value="Add Skip Reason" onClick={addSkipReason} />
-        </section>
+        </div>
     </form>
 }
 
