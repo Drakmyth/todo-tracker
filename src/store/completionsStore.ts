@@ -24,12 +24,14 @@ export interface CompletionsState {
 
 interface CompleteItemAction {
     type: CompletionsActions.COMPLETE_ITEM
+    id: string
     date: string
     item: string
 }
 
 interface SkipItemAction {
     type: CompletionsActions.SKIP_ITEM
+    id: string
     date: string
     item: string
     reason: string
@@ -49,27 +51,26 @@ export type CompletionsActionTypes = CompleteItemAction |
     RemoveCompletionAction |
     OtherAction
 
-export function completeItem(date: string,
-    item: string): CompletionsActionTypes {
+export function completeItem(date: string, item: string): CompleteItemAction {
     return {
         type: CompletionsActions.COMPLETE_ITEM,
+        id: v4(),
         date,
         item
     }
 }
 
-export function skipItem(date: string,
-    item: string,
-    reason: string): CompletionsActionTypes {
+export function skipItem(date: string, item: string, reason: string): SkipItemAction {
     return {
         type: CompletionsActions.SKIP_ITEM,
+        id: v4(),
         date,
         item,
         reason
     }
 }
 
-export function removeCompletion(completion: string): CompletionsActionTypes {
+export function removeCompletion(completion: string): RemoveCompletionAction {
     return {
         type: CompletionsActions.REMOVE_COMPLETION,
         completion
@@ -84,11 +85,10 @@ function completionsReducer(
 ): CompletionsState {
     switch (action.type) {
         case CompletionsActions.COMPLETE_ITEM:
-            const complete_id = v4()
             return {
                 ...state,
-                [complete_id]: {
-                    id: complete_id,
+                [action.id]: {
+                    id: action.id,
                     item: action.item,
                     date: action.date,
                     status: CompletionStatus.COMPLETE,
@@ -96,11 +96,10 @@ function completionsReducer(
                 }
             }
         case CompletionsActions.SKIP_ITEM:
-            const skipped_id = v4()
             return {
                 ...state,
-                [skipped_id]: {
-                    id: skipped_id,
+                [action.id]: {
+                    id: action.id,
                     item: action.item,
                     date: action.date,
                     status: CompletionStatus.SKIPPED,

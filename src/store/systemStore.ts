@@ -28,14 +28,14 @@ export type SystemActionTypes = SelectListAction |
     SelectItemAction |
     OtherAction
 
-export function selectList(id: string): SystemActionTypes {
+export function selectList(id: string): SelectListAction {
     return {
         type: SystemActions.SELECT_LIST,
         id
     }
 }
 
-export function selectItem(id: string): SystemActionTypes {
+export function selectItem(id: string): SelectItemAction {
     return {
         type: SystemActions.SELECT_ITEM,
         id

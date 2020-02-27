@@ -4,8 +4,8 @@ export enum TodoListsActions {
     ADD_LIST = 'ADD_LIST',
     REMOVE_LIST = 'REMOVE_LIST',
     CHANGE_LIST_NAME = 'CHANGE_LIST_NAME',
-    ADD_SKIP_REASON = 'ADD_SKIP_REASON',
-    REMOVE_SKIP_REASON = 'REMOVE_SKIP_REASON',
+    CHANGE_LIST_COMPLETE_COLOR = 'CHANGE_LIST_COMPLETE_COLOR',
+    CHANGE_LIST_INCOMPLETE_COLOR = 'CHANGE_LIST_INCOMPLETE_COLOR',
     OTHER = '__enforce_default__'
 }
 
@@ -13,36 +13,40 @@ export interface TodoListsState {
     [key: string]: {
         id: string,
         name: string,
-        skip_reasons: string[]
+        complete_color: string,
+        incomplete_color: string
     }
 }
 
 interface AddListAction {
     type: TodoListsActions.ADD_LIST
+    id: string
     name: string
+    complete_color: string,
+    incomplete_color: string
 }
 
 interface RemoveListAction {
     type: TodoListsActions.REMOVE_LIST
-    list: string
+    id: string
 }
 
 interface ChangeListNameAction {
     type: TodoListsActions.CHANGE_LIST_NAME
-    list: string
+    id: string
     name: string
 }
 
-interface AddSkipReasonAction {
-    type: TodoListsActions.ADD_SKIP_REASON
-    list: string
-    reason: string
+interface ChangeListCompleteColorAction {
+    type: TodoListsActions.CHANGE_LIST_COMPLETE_COLOR
+    id: string
+    color: string
 }
 
-interface RemoveSkipReasonAction {
-    type: TodoListsActions.REMOVE_SKIP_REASON
-    list: string
-    reason: string
+interface ChangeListIncompleteColorAction {
+    type: TodoListsActions.CHANGE_LIST_INCOMPLETE_COLOR
+    id: string
+    color: string
 }
 
 interface OtherAction {
@@ -52,45 +56,48 @@ interface OtherAction {
 export type TodoListsActionTypes = AddListAction |
     RemoveListAction |
     ChangeListNameAction |
-    AddSkipReasonAction |
-    RemoveSkipReasonAction |
+    ChangeListCompleteColorAction |
+    ChangeListIncompleteColorAction |
     OtherAction
 
-export function addList(name: string): TodoListsActionTypes {
+export function addList(name: string, completeColor?: string, incompleteColor?: string): AddListAction {
     return {
         type: TodoListsActions.ADD_LIST,
+        id: v4(),
+        complete_color: completeColor ?? '#0000FF',
+        incomplete_color: incompleteColor ?? '#FF0000',
         name
     }
 }
 
-export function removeList(list: string): TodoListsActionTypes {
+export function removeList(id: string): RemoveListAction {
     return {
         type: TodoListsActions.REMOVE_LIST,
-        list
+        id
     }
 }
 
-export function changeListName(list: string, name: string): TodoListsActionTypes {
+export function changeListName(id: string, name: string): ChangeListNameAction {
     return {
         type: TodoListsActions.CHANGE_LIST_NAME,
-        list,
+        id,
         name
     }
 }
 
-export function addSkipReason(list: string, reason: string): TodoListsActionTypes {
+export function changeListCompleteColor(id: string, color: string): ChangeListCompleteColorAction {
     return {
-        type: TodoListsActions.ADD_SKIP_REASON,
-        list,
-        reason
+        type: TodoListsActions.CHANGE_LIST_COMPLETE_COLOR,
+        id,
+        color
     }
 }
 
-export function removeSkipReason(list: string, reason: string): TodoListsActionTypes {
+export function changeListIncompleteColor(id: string, color: string): ChangeListIncompleteColorAction {
     return {
-        type: TodoListsActions.REMOVE_SKIP_REASON,
-        list,
-        reason
+        type: TodoListsActions.CHANGE_LIST_INCOMPLETE_COLOR,
+        id,
+        color
     }
 }
 
@@ -102,48 +109,43 @@ function todolistsReducer(
 ): TodoListsState {
     switch (action.type) {
         case TodoListsActions.ADD_LIST:
-            const id = v4()
             return {
                 ...state,
-                [id]: {
-                    id: id,
+                [action.id]: {
+                    id: action.id,
                     name: action.name,
-                    skip_reasons: []
+                    complete_color: action.complete_color,
+                    incomplete_color: action.incomplete_color
                 }
             }
         case TodoListsActions.REMOVE_LIST:
             var clone = {
                 ...state
             }
-            delete clone[action.list]
+            delete clone[action.id]
             return clone
         case TodoListsActions.CHANGE_LIST_NAME:
             return {
                 ...state,
-                [action.list]: {
-                    ...state[action.list],
+                [action.id]: {
+                    ...state[action.id],
                     name: action.name
                 }
             }
-        case TodoListsActions.ADD_SKIP_REASON:
-            var add_reasons = state[action.list].skip_reasons.slice()
-            add_reasons.push(action.reason)
+        case TodoListsActions.CHANGE_LIST_COMPLETE_COLOR:
             return {
                 ...state,
-                [action.list]: {
-                    ...state[action.list],
-                    skip_reasons: add_reasons
+                [action.id]: {
+                    ...state[action.id],
+                    complete_color: action.color
                 }
             }
-        case TodoListsActions.REMOVE_SKIP_REASON:
-            var remove_reasons = state[action.list].skip_reasons.filter(
-                (reason => reason !== action.reason)
-            )
+        case TodoListsActions.CHANGE_LIST_INCOMPLETE_COLOR:
             return {
                 ...state,
-                [action.list]: {
-                    ...state[action.list],
-                    skip_reasons: remove_reasons
+                [action.id]: {
+                    ...state[action.id],
+                    incomplete_color: action.color
                 }
             }
         default:
