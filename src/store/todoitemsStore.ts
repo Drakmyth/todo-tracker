@@ -31,6 +31,7 @@ export interface TodoItemsState {
 
 interface AddItemAction {
     type: TodoItemsActions.ADD_ITEM
+    id: string
     list: string
     name: string
     starts: string
@@ -40,30 +41,30 @@ interface AddItemAction {
 
 interface RemoveItemAction {
     type: TodoItemsActions.REMOVE_ITEM
-    item: string
+    id: string
 }
 
 interface ChangeItemNameAction {
     type: TodoItemsActions.CHANGE_ITEM_NAME
-    item: string
+    id: string
     name: string
 }
 
 interface ChangeItemStartAction {
     type: TodoItemsActions.CHANGE_ITEM_START
-    item: string
+    id: string
     starts: string
 }
 
 interface ChangeItemEndAction {
     type: TodoItemsActions.CHANGE_ITEM_END
-    item: string
+    id: string
     ends: string
 }
 
 interface ChangeItemRecurranceAction {
     type: TodoItemsActions.CHANGE_ITEM_RECURRANCE
-    item: string
+    id: string
     recurrance: TodoItemRecurrance
 }
 
@@ -83,9 +84,10 @@ export function addItem(list: string,
     name: string,
     starts: string,
     ends: string,
-    recurrance: TodoItemRecurrance): TodoItemsActionTypes {
+    recurrance: TodoItemRecurrance): AddItemAction {
     return {
         type: TodoItemsActions.ADD_ITEM,
+        id: v4(),
         list,
         name,
         starts,
@@ -94,41 +96,41 @@ export function addItem(list: string,
     }
 }
 
-export function removeItem(item: string): TodoItemsActionTypes {
+export function removeItem(id: string): RemoveItemAction {
     return {
         type: TodoItemsActions.REMOVE_ITEM,
-        item
+        id
     }
 }
 
-export function changeItemName(item: string, name: string): TodoItemsActionTypes {
+export function changeItemName(id: string, name: string): ChangeItemNameAction {
     return {
         type: TodoItemsActions.CHANGE_ITEM_NAME,
-        item,
+        id,
         name
     }
 }
 
-export function changeItemStart(item: string, starts: string): TodoItemsActionTypes {
+export function changeItemStart(id: string, starts: string): ChangeItemStartAction {
     return {
         type: TodoItemsActions.CHANGE_ITEM_START,
-        item,
+        id,
         starts
     }
 }
 
-export function changeItemEnd(item: string, ends: string): TodoItemsActionTypes {
+export function changeItemEnd(id: string, ends: string): ChangeItemEndAction {
     return {
         type: TodoItemsActions.CHANGE_ITEM_END,
-        item,
+        id,
         ends
     }
 }
 
-export function changeItemRecurrance(item: string, recurrance: TodoItemRecurrance): TodoItemsActionTypes {
+export function changeItemRecurrance(id: string, recurrance: TodoItemRecurrance): ChangeItemRecurranceAction {
     return {
         type: TodoItemsActions.CHANGE_ITEM_RECURRANCE,
-        item,
+        id,
         recurrance
     }
 }
@@ -141,11 +143,10 @@ function todoitemsReducer(
 ): TodoItemsState {
     switch (action.type) {
         case TodoItemsActions.ADD_ITEM:
-            const id = v4()
             return {
                 ...state,
-                [id]: {
-                    id: id,
+                [action.id]: {
+                    id: action.id,
                     list: action.list,
                     name: action.name,
                     starts: action.starts,
@@ -157,37 +158,37 @@ function todoitemsReducer(
             var clone = {
                 ...state
             }
-            delete clone[action.item]
+            delete clone[action.id]
             return clone
         case TodoItemsActions.CHANGE_ITEM_NAME:
             return {
                 ...state,
-                [action.item]: {
-                    ...state[action.item],
+                [action.id]: {
+                    ...state[action.id],
                     name: action.name
                 }
             }
         case TodoItemsActions.CHANGE_ITEM_START:
             return {
                 ...state,
-                [action.item]: {
-                    ...state[action.item],
+                [action.id]: {
+                    ...state[action.id],
                     starts: action.starts
                 }
             }
         case TodoItemsActions.CHANGE_ITEM_END:
             return {
                 ...state,
-                [action.item]: {
-                    ...state[action.item],
+                [action.id]: {
+                    ...state[action.id],
                     ends: action.ends
                 }
             }
         case TodoItemsActions.CHANGE_ITEM_RECURRANCE:
             return {
                 ...state,
-                [action.item]: {
-                    ...state[action.item],
+                [action.id]: {
+                    ...state[action.id],
                     recurrance: action.recurrance
                 }
             }

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface CreateListFormProps {
     title: string
+    showTitleValidation: boolean
     skipReasons: ReasonColorMap
     completeColor: string
     incompleteColor: string
@@ -50,7 +51,10 @@ const CreateListForm: React.FC<CreateListFormProps> = (props) => {
                     value={props.title}
                     onChange={(event) => props.onTitleChange(event.target.value)}
                     placeholder="e.g. My First List" />
-                <span className="validation-error">*Required</span>
+                {
+                    props.showTitleValidation &&
+                    <span className="validation-error">*Required</span>
+                }
             </div>
             <div className="ListField">
                 <span>Complete Color:</span>

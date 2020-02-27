@@ -19,6 +19,7 @@ export interface SkipReasonsState {
 
 interface AddReasonAction {
     type: SkipReasonsActions.ADD_REASON
+    id: string
     list: string
     reason: string
     color: string
@@ -51,23 +52,24 @@ export type SkipReasonsActionTypes = AddReasonAction |
     ChangeColorAction |
     OtherAction
 
-export function addReason(list: string, reason: string, color?: string): SkipReasonsActionTypes {
+export function addReason(list: string, reason: string, color?: string): AddReasonAction {
     return {
         type: SkipReasonsActions.ADD_REASON,
+        id: v4(),
         color: color ?? '#000000',
         list,
         reason
     }
 }
 
-export function removeReason(id: string): SkipReasonsActionTypes {
+export function removeReason(id: string): RemoveReasonAction {
     return {
         type: SkipReasonsActions.REMOVE_REASON,
         id
     }
 }
 
-export function changeReason(id: string, reason: string): SkipReasonsActionTypes {
+export function changeReason(id: string, reason: string): ChangeReasonAction {
     return {
         type: SkipReasonsActions.CHANGE_REASON,
         id,
@@ -75,7 +77,7 @@ export function changeReason(id: string, reason: string): SkipReasonsActionTypes
     }
 }
 
-export function changeColor(id: string, color: string): SkipReasonsActionTypes {
+export function changeColor(id: string, color: string): ChangeColorAction {
     return {
         type: SkipReasonsActions.CHANGE_COLOR,
         id,
@@ -83,20 +85,7 @@ export function changeColor(id: string, color: string): SkipReasonsActionTypes {
     }
 }
 
-const InitialSkipReasonsState: SkipReasonsState = {
-    'reason-1': {
-        id: 'reason-1',
-        list: 'list-1',
-        reason: 'stuff',
-        color: '#000000'
-    },
-    'reason-2': {
-        id: 'reason-2',
-        list: 'list-1',
-        reason: 'thangs',
-        color: '#FFFFFF'
-    }
-}
+const InitialSkipReasonsState: SkipReasonsState = {}
 
 function skipreasonsReducer(
     state = InitialSkipReasonsState,
@@ -104,11 +93,10 @@ function skipreasonsReducer(
 ): SkipReasonsState {
     switch (action.type) {
         case SkipReasonsActions.ADD_REASON:
-            const id = v4()
             return {
                 ...state,
-                [id]: {
-                    id: id,
+                [action.id]: {
+                    id: action.id,
                     list: action.list,
                     reason: action.reason,
                     color: action.color

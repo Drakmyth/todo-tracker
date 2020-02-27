@@ -20,6 +20,7 @@ export interface TodoListsState {
 
 interface AddListAction {
     type: TodoListsActions.ADD_LIST
+    id: string
     name: string
     complete_color: string,
     incomplete_color: string
@@ -27,24 +28,24 @@ interface AddListAction {
 
 interface RemoveListAction {
     type: TodoListsActions.REMOVE_LIST
-    list: string
+    id: string
 }
 
 interface ChangeListNameAction {
     type: TodoListsActions.CHANGE_LIST_NAME
-    list: string
+    id: string
     name: string
 }
 
-interface ChangeListCompleteColor {
+interface ChangeListCompleteColorAction {
     type: TodoListsActions.CHANGE_LIST_COMPLETE_COLOR
-    list: string
+    id: string
     color: string
 }
 
-interface ChangeListIncompleteColor {
+interface ChangeListIncompleteColorAction {
     type: TodoListsActions.CHANGE_LIST_INCOMPLETE_COLOR
-    list: string
+    id: string
     color: string
 }
 
@@ -55,46 +56,47 @@ interface OtherAction {
 export type TodoListsActionTypes = AddListAction |
     RemoveListAction |
     ChangeListNameAction |
-    ChangeListCompleteColor |
-    ChangeListIncompleteColor |
+    ChangeListCompleteColorAction |
+    ChangeListIncompleteColorAction |
     OtherAction
 
-export function addList(name: string, completeColor?: string, incompleteColor?: string): TodoListsActionTypes {
+export function addList(name: string, completeColor?: string, incompleteColor?: string): AddListAction {
     return {
         type: TodoListsActions.ADD_LIST,
+        id: v4(),
         complete_color: completeColor ?? '#0000FF',
         incomplete_color: incompleteColor ?? '#FF0000',
         name
     }
 }
 
-export function removeList(list: string): TodoListsActionTypes {
+export function removeList(id: string): RemoveListAction {
     return {
         type: TodoListsActions.REMOVE_LIST,
-        list
+        id
     }
 }
 
-export function changeListName(list: string, name: string): TodoListsActionTypes {
+export function changeListName(id: string, name: string): ChangeListNameAction {
     return {
         type: TodoListsActions.CHANGE_LIST_NAME,
-        list,
+        id,
         name
     }
 }
 
-export function changeListCompleteColor(list: string, color: string): TodoListsActionTypes {
+export function changeListCompleteColor(id: string, color: string): ChangeListCompleteColorAction {
     return {
         type: TodoListsActions.CHANGE_LIST_COMPLETE_COLOR,
-        list,
+        id,
         color
     }
 }
 
-export function changeListIncompleteColor(list: string, color: string): TodoListsActionTypes {
+export function changeListIncompleteColor(id: string, color: string): ChangeListIncompleteColorAction {
     return {
         type: TodoListsActions.CHANGE_LIST_INCOMPLETE_COLOR,
-        list,
+        id,
         color
     }
 }
@@ -107,11 +109,10 @@ function todolistsReducer(
 ): TodoListsState {
     switch (action.type) {
         case TodoListsActions.ADD_LIST:
-            const id = v4()
             return {
                 ...state,
-                [id]: {
-                    id: id,
+                [action.id]: {
+                    id: action.id,
                     name: action.name,
                     complete_color: action.complete_color,
                     incomplete_color: action.incomplete_color
@@ -121,29 +122,29 @@ function todolistsReducer(
             var clone = {
                 ...state
             }
-            delete clone[action.list]
+            delete clone[action.id]
             return clone
         case TodoListsActions.CHANGE_LIST_NAME:
             return {
                 ...state,
-                [action.list]: {
-                    ...state[action.list],
+                [action.id]: {
+                    ...state[action.id],
                     name: action.name
                 }
             }
         case TodoListsActions.CHANGE_LIST_COMPLETE_COLOR:
             return {
                 ...state,
-                [action.list]: {
-                    ...state[action.list],
+                [action.id]: {
+                    ...state[action.id],
                     complete_color: action.color
                 }
             }
         case TodoListsActions.CHANGE_LIST_INCOMPLETE_COLOR:
             return {
                 ...state,
-                [action.list]: {
-                    ...state[action.list],
+                [action.id]: {
+                    ...state[action.id],
                     incomplete_color: action.color
                 }
             }

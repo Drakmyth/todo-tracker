@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/rootStore';
 import { selectList } from '../../store/systemStore';
 import AddListModal from './AddListModal/AddListModal';
+import { addList } from '../../store/todolistsStore';
+import { addReason } from '../../store/skipreasonsStore';
 
 const ToDoListCollection: React.FC = () => {
   const todolists = useSelector((state: RootState) => state.todolists);
@@ -18,8 +20,14 @@ const ToDoListCollection: React.FC = () => {
     setShowCreateListDialog(false);
   }
 
-  const confirmCreateListDialog = () => {
-    console.log("Confirmed");
+  const confirmCreateListDialog = (title: string, complete_color: string, incomplete_color: string, skipReasons: ReasonColorMap) => {
+    const retVal = dispatch(addList(title, complete_color, incomplete_color));
+    Object.keys(skipReasons).forEach((reason) => {
+      const retVal2 = dispatch(addReason(retVal.id, reason, skipReasons[reason]));
+      console.log(retVal2);
+    })
+    console.log(retVal);
+    setShowCreateListDialog(false);
   }
 
   return (
