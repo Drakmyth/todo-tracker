@@ -6,8 +6,13 @@ import { selectList } from '../../store/systemStore';
 import AddListModal from './AddListModal/AddListModal';
 import { addList } from '../../store/todolistsStore';
 import { addReason } from '../../store/skipreasonsStore';
+import joinClasses from '../../utilities/joinClasses';
 
-const ToDoListCollection: React.FC = () => {
+interface ToDoListCollectionProps {
+  className?: string
+}
+
+const ToDoListCollection: React.FC<ToDoListCollectionProps> = (props) => {
   const todolists = useSelector((state: RootState) => state.todolists);
   const dispatch = useDispatch();
   const [showCreateListDialog, setShowCreateListDialog] = useState(false);
@@ -31,7 +36,7 @@ const ToDoListCollection: React.FC = () => {
   }
 
   return (
-    <div className="ToDoListCollection">
+    <div className={joinClasses("ToDoListCollection", props.className)}>
       <header>Lists</header>
       {
         Object.keys(todolists).map(key => {
