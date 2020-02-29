@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootStore';
 
 interface ToDoListProps {
-    id: string | null;
+    id: string | null
+    className?: string
 }
 
 const ToDoList: React.FC<ToDoListProps> = (props) => {
@@ -14,14 +15,14 @@ const ToDoList: React.FC<ToDoListProps> = (props) => {
     const todoitems = useSelector((state: RootState) => state.todoitems)
     const [showPlaceholder, setShowPlaceholder] = useState(false);
 
-    if (!props.id) return <div />;
+    if (!props.id) return <div className="todo-list"/>;
 
     const displayPlaceholder = () => {
         setShowPlaceholder(true);
     }
     
     return (
-        <div className="ToDoList">
+        <div className="todo-list">
             <header>{todolist?.name}</header>
             {
                 Object.keys(todoitems)

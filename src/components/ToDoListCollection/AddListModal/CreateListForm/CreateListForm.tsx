@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './CreateListForm.scss';
 import ColorPicker from '../../../ColorPicker/ColorPicker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -42,11 +41,13 @@ const CreateListForm: React.FC<CreateListFormProps> = (props) => {
         props.onSkipReasonChange(clone);
     }
 
-    return <form className="CreateListForm">
-        <div className="ListProperties">
-            <div className="ListField">
+    return <form className="modal-form">
+        <fieldset className="todo-list-properties">
+            <legend>List Properties:</legend>
+            <div>
                 <label htmlFor="list-title">Title:</label>
                 <input id="list-title"
+                    className="form-field"
                     type="text"
                     value={props.title}
                     onChange={(event) => props.onTitleChange(event.target.value)}
@@ -56,18 +57,18 @@ const CreateListForm: React.FC<CreateListFormProps> = (props) => {
                     <span className="validation-error">*Required</span>
                 }
             </div>
-            <div className="ListField">
-                <span>Complete Color:</span>
-                <ColorPicker color={props.completeColor} onChange={props.onCompleteColorChange} />
+            <div>
+                <label>Complete Color:</label>
+                <ColorPicker className="form-field" color={props.completeColor} onChange={props.onCompleteColorChange} />
             </div>
-            <div className="ListField">
-                <span>Incomplete Color:</span>
-                <ColorPicker color={props.incompleteColor} onChange={props.onIncompleteColorChange} />
+            <div>
+                <label>Incomplete Color:</label>
+                <ColorPicker className="form-field" color={props.incompleteColor} onChange={props.onIncompleteColorChange} />
             </div>
-        </div>
-        <div className="SkipReasons">
-            <span>Skip Reasons:</span>
-            <table>
+        </fieldset>
+        <fieldset>
+            <legend>Skip Reasons:</legend>
+            <table className="table--skip-reasons">
                 <thead>
                     <tr>
                         <th>Reason</th>
@@ -96,7 +97,7 @@ const CreateListForm: React.FC<CreateListFormProps> = (props) => {
                     </tr>
                 </tfoot>
             </table>
-        </div>
+        </fieldset>
     </form>
 }
 

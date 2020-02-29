@@ -2,10 +2,12 @@ import React, { useState, useEffect, MouseEvent, useRef } from 'react';
 import './ColorPicker.scss';
 import { SketchPicker } from 'react-color';
 import ReactDOM from 'react-dom';
+import joinClasses from '../../utilities/joinClasses';
 
 interface ColorPickerProps {
     color: string
     onChange: (color: string) => void
+    className?: string
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
@@ -51,7 +53,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
         cancelColor(event);
     }
 
-    return <div className="ColorPicker">
+    return <div className={joinClasses("ColorPicker", props.className)}>
         <div className="cp-preview" ref={picker_preview_ref} onClick={openPicker} style={{ background: previousColor }}></div>
         <span className="cp-hex">{previousColor}</span>
         {displayColorPicker &&
