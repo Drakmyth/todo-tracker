@@ -1,7 +1,13 @@
-.todo-list-properties {
-    & > div {
-        padding: 4px;
-    }
+.form-field {
+    padding: 4px;
+}
+
+label {
+    display: block;
+}
+
+.form-input--standard {
+    margin-left: 20px;
 }
 
 // .modal-form {

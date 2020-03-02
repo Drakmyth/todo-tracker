@@ -42,12 +42,12 @@ const CreateListForm: React.FC<CreateListFormProps> = (props) => {
     }
 
     return <form className="modal-form">
-        <fieldset className="todo-list-properties">
+        <fieldset>
             <legend>List Properties:</legend>
-            <div>
+            <div className="form-field">
                 <label htmlFor="list-title">Title:</label>
                 <input id="list-title"
-                    className="form-field"
+                    className="form-input form-input--standard"
                     type="text"
                     value={props.title}
                     onChange={(event) => props.onTitleChange(event.target.value)}
@@ -57,13 +57,13 @@ const CreateListForm: React.FC<CreateListFormProps> = (props) => {
                     <span className="validation-error">*Required</span>
                 }
             </div>
-            <div>
+            <div className="form-field">
                 <label>Complete Color:</label>
-                <ColorPicker className="form-field" color={props.completeColor} onChange={props.onCompleteColorChange} />
+                <ColorPicker className="form-input form-input--standard" color={props.completeColor} onChange={props.onCompleteColorChange} />
             </div>
-            <div>
+            <div className="form-field">
                 <label>Incomplete Color:</label>
-                <ColorPicker className="form-field" color={props.incompleteColor} onChange={props.onIncompleteColorChange} />
+                <ColorPicker className="form-input form-input--standard" color={props.incompleteColor} onChange={props.onIncompleteColorChange} />
             </div>
         </fieldset>
         <fieldset>
