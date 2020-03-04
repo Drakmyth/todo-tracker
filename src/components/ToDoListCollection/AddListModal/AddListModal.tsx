@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './AddListModal.scss';
 import Modal from '../../Modal/Modal';
 import CreateListForm from './CreateListForm/CreateListForm';
 
@@ -26,7 +25,13 @@ const AddListModal: React.FC<AddListModalProps> = (props) => {
   }
 
   return (
-    <Modal isOpen={props.isOpen} onEscapeKey={props.onCancel} onClickOutside={props.onCancel}>
+    <Modal isOpen={props.isOpen}
+      onEscapeKey={props.onCancel}
+      onClickOutside={props.onCancel}
+      confirmButtonText="Add List"
+      onConfirm={validateAndConfirmForm}
+      cancelButtonText="Cancel"
+      onCancel={props.onCancel}>
       <CreateListForm skipReasons={skipReasons}
         onSkipReasonChange={setSkipReasons}
         title={title}
@@ -36,10 +41,6 @@ const AddListModal: React.FC<AddListModalProps> = (props) => {
         onCompleteColorChange={setCompleteColor}
         incompleteColor={incompleteColor}
         onIncompleteColorChange={setIncompleteColor} />
-      <section className="ModalButtons">
-        <input type="button" value="Add List" onClick={validateAndConfirmForm} />
-        <input type="button" value="Cancel" onClick={props.onCancel} />
-      </section>
     </Modal>
   );
 }

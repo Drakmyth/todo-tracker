@@ -1,11 +1,12 @@
 import React, { useState, useEffect, MouseEvent, useRef } from 'react';
-import './ColorPicker.scss';
 import { SketchPicker } from 'react-color';
 import ReactDOM from 'react-dom';
+import joinClasses from '../../utilities/joinClasses';
 
 interface ColorPickerProps {
     color: string
     onChange: (color: string) => void
+    className?: string
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
@@ -51,15 +52,15 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
         cancelColor(event);
     }
 
-    return <div className="ColorPicker">
-        <div className="cp-preview" ref={picker_preview_ref} onClick={openPicker} style={{ background: previousColor }}></div>
-        <span className="cp-hex">{previousColor}</span>
+    return <div className={joinClasses("color-picker", props.className)}>
+        <div className="color-picker-preview" ref={picker_preview_ref} onClick={openPicker} style={{ background: previousColor }}></div>
+        <span className="color-picker-value">{previousColor}</span>
         {displayColorPicker &&
             ReactDOM.createPortal(
-                <div className="popover" ref={popover_ref} onClick={cancelClickAway}>
-                    <div className="color-picker-modal" ref={picker_modal_ref} style={{left: pickerPosition[0], top: pickerPosition[1]}}>
+                <div className="modal-cover" ref={popover_ref} onClick={cancelClickAway}>
+                    <div className="color-picker-modal modal--color-picker" ref={picker_modal_ref} style={{left: pickerPosition[0], top: pickerPosition[1]}}>
                         <SketchPicker color={color} onChange={(c) => setColor(c.hex)} />
-                        <div className="color-picker-buttons">
+                        <div className="modal-buttons modal-buttons--color-picker">
                             <button onClick={pickColor}>Apply</button>
                             <button onClick={cancelColor}>Cancel</button>
                         </div>

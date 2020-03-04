@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './ToDoItem.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ToDoItemProps {
@@ -22,14 +21,14 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ initialTitle }) => {
 
     if (editMode) {
         return (
-            <div className="ToDoItem">
+            <div className="todo-item">
                 <input type="text" value={title} onChange={(event) => onTextboxCommit(event.target.value)} />
             </div>
         )
     }
     else {
         return (
-            <div className="ToDoItem">
+            <div className="todo-item">
                 <label>{title}<input type="checkbox" /></label>
                 <FontAwesomeIcon icon="pen" onClick={testEdit} />
                 <FontAwesomeIcon icon="sync-alt" flip="horizontal" />

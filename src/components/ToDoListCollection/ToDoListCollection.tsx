@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import './ToDoListCollection.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/rootStore';
 import { selectList } from '../../store/systemStore';
 import AddListModal from './AddListModal/AddListModal';
 import { addList } from '../../store/todolistsStore';
 import { addReason } from '../../store/skipreasonsStore';
-import joinClasses from '../../utilities/joinClasses';
 
 interface ToDoListCollectionProps {
   className?: string
@@ -36,7 +34,7 @@ const ToDoListCollection: React.FC<ToDoListCollectionProps> = (props) => {
   }
 
   return (
-    <div className={joinClasses("ToDoListCollection", props.className)}>
+    <div className="todo-list-collection">
       <header>Lists</header>
       {
         Object.keys(todolists).map(key => {
