@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const system = useSelector((state: RootState) => state.system);
 
   return (
-    <main className="App">
+    <main className="app-page">
       <ToDoListCollection/>
       <ToDoList id={system.selectedList}/>
       <div className="calendar" />
