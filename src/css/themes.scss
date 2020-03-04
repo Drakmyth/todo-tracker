@@ -1,0 +1,30 @@
+
+
+.modal--standard {
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+}
+
+.modal--color-picker {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.modal-cover--standard {
+    background-color: rgba(0,0,0, 0.15);
+}
+
+.modal-buttons--standard {
+    padding-top: 10px;
+}
+
+.modal-buttons--color-picker {
+    padding: 10px;
+}
+
+.form-input--standard {
+    margin-left: 20px;
+}

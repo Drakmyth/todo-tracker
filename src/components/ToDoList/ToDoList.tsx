@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ToDoItem from '../ToDoItem/ToDoItem';
-import './ToDoList.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootStore';
 

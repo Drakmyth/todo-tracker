@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './ToDoListCollection.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/rootStore';
 import { selectList } from '../../store/systemStore';

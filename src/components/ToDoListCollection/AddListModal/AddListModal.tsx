@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './AddListModal.scss';
 import Modal from '../../Modal/Modal';
 import CreateListForm from './CreateListForm/CreateListForm';
 
